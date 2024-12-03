@@ -1,10 +1,13 @@
 import { BrowserRouter } from 'react-router-dom'
+import { EquipeProvider } from './hooks/EquipeContext.jsx'
 import { Router } from './routes'
 
 function App() {
   return (
     <BrowserRouter>
-      <Router />
+      <EquipeProvider>
+        <Router />
+      </EquipeProvider>
     </BrowserRouter>
   )
 }
