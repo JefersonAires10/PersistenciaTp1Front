@@ -65,7 +65,7 @@ export default new (class EquipeApi {
 
     async searchEquipe(searchTerm) {
         try {
-            const response = await api.get(`api/equipes/${searchTerm}`)
+            const response = await api.get(`api/equipes/search?search=${searchTerm}`)
             return response
         } catch (error) {
             return error

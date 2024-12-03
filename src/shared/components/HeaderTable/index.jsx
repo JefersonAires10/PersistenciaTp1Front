@@ -1,25 +1,17 @@
 import { Divider, Input, Button, notification } from "antd";
 import * as S from "./style";
-import { useEquipe } from "../../../hooks/EquipeContext.jsx";
-import EquipeService from "../../services/Equipe/EquipeService.js";
+import EquipeService from "../../services/Equipe/EquipeService";
+import { useEquipe } from "../../../hooks/EquipeContext";
 
 const HeaderTable = () => {
     const { handleSearch, searchTerm, setIsModalVisible } = useEquipe();
 
     const handleDownloadTable = async () => {
-        try {
-            const response = await EquipeService.downloadTable();
-            if (response.status === 200) {
-                notification.success({
-                    message: 'Sucesso',
-                    description: 'Tabela baixada com sucesso!',
-                });
-            }
-        } catch (error) {
-            console.error(error);
-            notification.error({
-                message: 'Erro',
-                description: 'Ocorreu um erro ao baixar a tabela.',
+        const response = await EquipeService.downloadTable();
+        if (response.status === 200) {
+            notification.success({
+                message: 'Sucesso',
+                description: 'Tabela baixada com sucesso!',
             });
         }
     };
@@ -28,7 +20,7 @@ const HeaderTable = () => {
         <>
             <S.Title>TABELA</S.Title>
             <Divider />
-            <S.Container>
+            <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "20px" }}>
                 <Input
                     placeholder="Pesquisar equipe"
                     value={searchTerm}
@@ -37,7 +29,7 @@ const HeaderTable = () => {
                 />
                 <Button type="primary" onClick={handleDownloadTable}>Baixar Tabela</Button>
                 <Button type="primary" onClick={() => setIsModalVisible(true)}>Adicionar Equipe</Button>
-            </S.Container>
+            </div>
         </>
     );
 };
