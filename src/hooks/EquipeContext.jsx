@@ -29,13 +29,14 @@ export const EquipeProvider = ({ children }) => {
 
     const handleModalClose = () => {
         setIsModalVisible(false);
+        setInitialValues(null);
     };
 
     const handleModalSubmit = async (values) => {
         try {
             let response;
             if (initialValues) {
-                response = await EquipeService.updateEquipe(initialValues.id, values);
+                response = await EquipeService.updateEquipe(initialValues.id, { ...values, id: initialValues.id });
                 if (response.status === 200) {
                     notification.success({
                         message: 'Sucesso',

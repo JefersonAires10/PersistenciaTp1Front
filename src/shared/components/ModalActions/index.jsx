@@ -1,8 +1,21 @@
 import { Modal, Form, Input, Button, Row, Col } from "antd";
 import PropTypes from "prop-types";
+import { useEffect } from "react";
 
 const ModalAction = ({ visible, onClose, onSubmit, initialValues }) => {
     const [form] = Form.useForm();
+
+    useEffect(() => {
+        if (visible) {
+            if (initialValues) {
+                form.setFieldsValue(initialValues);
+            }
+            else {
+                form.resetFields();
+            }
+        }
+
+    }, [initialValues, visible, form]);
 
     const handleOk = () => {
         form.validateFields()
@@ -15,13 +28,18 @@ const ModalAction = ({ visible, onClose, onSubmit, initialValues }) => {
             });
     };
 
+    const handleCancel = () => {
+        form.resetFields();
+        onClose();
+    };
+
     return (
         <Modal
             open={visible}
             title={initialValues ? "Editar Equipe" : "Cadastrar Equipe"}
-            onCancel={onClose}
+            onCancel={handleCancel}
             footer={[
-                <Button key="back" onClick={onClose}>
+                <Button key="back" onClick={handleCancel}>
                     Cancelar
                 </Button>,
                 <Button key="submit" type="primary" onClick={handleOk}>
@@ -34,7 +52,6 @@ const ModalAction = ({ visible, onClose, onSubmit, initialValues }) => {
             <Form
                 form={form}
                 layout="vertical"
-                initialValues={initialValues}
             >
                 <Row gutter={16}>
                     <Col span={8}>
@@ -43,7 +60,7 @@ const ModalAction = ({ visible, onClose, onSubmit, initialValues }) => {
                             label="Nome"
                             rules={[{ required: true, message: 'Por favor, insira o nome da equipe!' }]}
                         >
-                            <Input />
+                            <Input placeholder="Nome da equipe" />
                         </Form.Item>
                     </Col>
                     <Col span={8}>
@@ -52,7 +69,7 @@ const ModalAction = ({ visible, onClose, onSubmit, initialValues }) => {
                             label="Estádio"
                             rules={[{ required: true, message: 'Por favor, insira o estádio!' }]}
                         >
-                            <Input />
+                            <Input placeholder="Estádio" />
                         </Form.Item>
                     </Col>
                     <Col span={8}>
@@ -61,7 +78,7 @@ const ModalAction = ({ visible, onClose, onSubmit, initialValues }) => {
                             label="Apelido"
                             rules={[{ required: true, message: 'Por favor, insira o apelido!' }]}
                         >
-                            <Input />
+                            <Input placeholder="Apelido" />
                         </Form.Item>
                     </Col>
                 </Row>
@@ -72,7 +89,7 @@ const ModalAction = ({ visible, onClose, onSubmit, initialValues }) => {
                             label="Jogadores Registrados"
                             rules={[{ required: true, message: 'Por favor, insira o número de jogadores registrados!' }]}
                         >
-                            <Input />
+                            <Input placeholder="Número de jogadores registrados" />
                         </Form.Item>
                     </Col>
                     <Col span={8}>
@@ -81,7 +98,7 @@ const ModalAction = ({ visible, onClose, onSubmit, initialValues }) => {
                             label="Pontos"
                             rules={[{ required: true, message: 'Por favor, insira os pontos!' }]}
                         >
-                            <Input />
+                            <Input placeholder="Pontos" />
                         </Form.Item>
                     </Col>
                     <Col span={8}>
@@ -90,7 +107,7 @@ const ModalAction = ({ visible, onClose, onSubmit, initialValues }) => {
                             label="Jogos"
                             rules={[{ required: true, message: 'Por favor, insira o número de jogos!' }]}
                         >
-                            <Input />
+                            <Input placeholder="Número de jogos" />
                         </Form.Item>
                     </Col>
                 </Row>
@@ -101,7 +118,7 @@ const ModalAction = ({ visible, onClose, onSubmit, initialValues }) => {
                             label="Vitórias"
                             rules={[{ required: true, message: 'Por favor, insira o número de vitórias!' }]}
                         >
-                            <Input />
+                            <Input placeholder="Número de vitórias" />
                         </Form.Item>
                     </Col>
                     <Col span={8}>
@@ -110,7 +127,7 @@ const ModalAction = ({ visible, onClose, onSubmit, initialValues }) => {
                             label="Empates"
                             rules={[{ required: true, message: 'Por favor, insira o número de empates!' }]}
                         >
-                            <Input />
+                            <Input placeholder="Número de empates" />
                         </Form.Item>
                     </Col>
                     <Col span={8}>
@@ -119,7 +136,7 @@ const ModalAction = ({ visible, onClose, onSubmit, initialValues }) => {
                             label="Derrotas"
                             rules={[{ required: true, message: 'Por favor, insira o número de derrotas!' }]}
                         >
-                            <Input />
+                            <Input placeholder="Número de derrotas" />
                         </Form.Item>
                     </Col>
                 </Row>
@@ -132,7 +149,7 @@ ModalAction.propTypes = {
     visible: PropTypes.bool,
     onClose: PropTypes.func,
     onSubmit: PropTypes.func,
-    initialValues: PropTypes.object
+    initialValues: PropTypes.object,
 };
 
 export default ModalAction;

@@ -3,7 +3,8 @@ import styled from "styled-components";
 export const LegendContainer = styled.div`
   display: flex;
   justify-content: flex-start;
-  margin-top: 16px;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
   gap: 16px;
 `;
 

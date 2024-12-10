@@ -19,7 +19,7 @@ const TableComponent = () => {
     return (
         <>
             <S.StyledTable
-                dataSource={equipes}
+                dataSource={equipes.map((equipe) => ({ ...equipe, key: equipe.id }))}
                 columns={columns}
                 pagination={false}
             />
